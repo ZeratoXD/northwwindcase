@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.northwind.csv.service.DatabaseWritingService;
+import com.opencsv.exceptions.CsvException;
 import com.northwind.csv.service.DataExtractionService;
 import com.northwind.csv.service.DataWritingService;
 
@@ -24,11 +26,11 @@ public class PipelineController {
     private DataWritingService dataWritingService;
 
     @Autowired
-    private DataBaseWritingService databaseWritingService;
+    private DatabaseWritingService databaseWritingService;
 
     // Endpoint para executar a extração e escrita no disco local
     @GetMapping("/run-extraction")
-    public String runExtraction() throws IOException {
+    public String runExtraction() throws IOException, CsvException {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         // Extrair dados do PostgreSQL
